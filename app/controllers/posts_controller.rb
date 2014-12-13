@@ -5,7 +5,7 @@ class PostsController < ApplicationController
 	end
 
 	def new
-		
+		@post=Post.new
 	end
 
 	def show
@@ -17,8 +17,11 @@ class PostsController < ApplicationController
 	def create
 		#first create the post
 		@post=Post.new(post_params)
-		@post.save
-		redirect_to @post
+		if @post.save
+			redirect_to @post
+		else
+			render 'new'
+		end	
 	end
 
 	#Rails 4 has a security feature called strong parameters
